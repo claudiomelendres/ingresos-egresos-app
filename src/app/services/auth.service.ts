@@ -13,8 +13,12 @@ import * as authActions from "../auth/auth.actions";
 })
 export class AuthService {
 
-  // @ts-ignore
   userSubscription: Subscription;
+  private _user: Usuario | null;
+
+  get user(): Usuario | null {
+    return this._user;
+  }
 
   constructor(public auth: AngularFireAuth,
               private firestore: AngularFirestore,
@@ -31,11 +35,14 @@ export class AuthService {
 
                                   const user = Usuario.fromFirebase(firestoreUser);
 
-                                  console.log('firestoreUser: ', firestoreUser)
+                                  this._user = user;
+
+                                  // console.log('firestoreUser: ', firestoreUser)
                                   this.store.dispatch( authActions.setUser({user: user}) )
                                 })
       } else {
         // console.log('llamar unset del user')
+        this._user = null;
         this.userSubscription.unsubscribe();
         this.store.dispatch( authActions.unSetUser());
       }
