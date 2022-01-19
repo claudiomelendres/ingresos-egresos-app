@@ -15,14 +15,17 @@ export class IngresoEgresoService {
                ) { }
 
   crearIngresoEgreso( ingresoEgreso: IngresoEgreso ) {
+    // const { descripcion, monto, tipo } = ingresoEgreso
     const uid = this.authService.user?.uid;
+    delete ingresoEgreso.uid;
     return this.firestore.doc(`${uid}/ingresos-egresos`)
       .collection('items')
-      .add( {...ingresoEgreso} )
+      .add({...ingresoEgreso})
+      // .add( { descripcion, monto, tipo } )
   }
 
   initIngresosEgresosListener(uid: string) {
-    this.firestore.collection(`${ uid }/ingresos-egresos/items`)
+    return this.firestore.collection(`${ uid }/ingresos-egresos/items`)
       .snapshotChanges()
       .pipe(
         map( snapshot => snapshot.map( doc =>(
@@ -32,9 +35,14 @@ export class IngresoEgresoService {
               })
             )
         )
-      )
-      .subscribe(algo =>{
-        console.log(algo)
-      })
+      );
+      // .subscribe(algo =>{
+      //   console.log(algo)
+      // })
+  }
+
+  borrarIngresoEgreso( uidItem: string) {
+    const uid = this.authService.user?.uid;
+    return this.firestore.doc(`${uid}/ingresos-egresos/items/${ uidItem }`).delete();
   }
 }

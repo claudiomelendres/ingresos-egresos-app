@@ -4,6 +4,7 @@ import {AppState} from "../app.reducer";
 import {logEvent} from "@angular/fire/analytics";
 import {filter, Subscription} from "rxjs";
 import {IngresoEgresoService} from "../services/ingreso-egreso.service";
+import * as ingresoEgresoActions from "../ingreso-egreso/ingreso-egreso.actions";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ import {IngresoEgresoService} from "../services/ingreso-egreso.service";
 export class DashboardComponent implements OnInit, OnDestroy {
 
   userSubs: Subscription;
+  ingresosSubs: Subscription;
 
   constructor( private store: Store<AppState>,
                private ingresoEgresoService: IngresoEgresoService) { }
@@ -27,11 +29,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     subscribe( ({user}) => {
       console.log(user);
       // @ts-ignore
-        this.ingresoEgresoService.initIngresosEgresosListener(user.user.uid);
+        this.ingresosSubs = this.ingresoEgresoService.initIngresosEgresosListener(user.user.uid)
+          .subscribe( ingresosEgresosFB => {
+            // console.log(ingresosEgresosFB)
+            this.store.dispatch( ingresoEgresoActions.setItems({items: ingresosEgresosFB}) );
+
+          })
     })
   }
 
   ngOnDestroy(): void {
-        this.userSubs.unsubscribe();
+      this.ingresosSubs.unsubscribe();
+      this.userSubs.unsubscribe();
     }
 }
