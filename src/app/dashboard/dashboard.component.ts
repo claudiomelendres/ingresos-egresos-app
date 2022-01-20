@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         filter( auth => auth.user != null )
       ).
     subscribe( ({user}) => {
-      console.log(user);
+      // console.log(user);
       // @ts-ignore
         this.ingresosSubs = this.ingresoEgresoService.initIngresosEgresosListener(user.user.uid)
           .subscribe( ingresosEgresosFB => {
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.ingresosSubs.unsubscribe();
-      this.userSubs.unsubscribe();
+      this.ingresosSubs?.unsubscribe();
+      this.userSubs?.unsubscribe();
     }
 }

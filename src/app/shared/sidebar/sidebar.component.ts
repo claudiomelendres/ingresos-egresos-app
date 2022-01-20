@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit {
       subscribe( ({user}) => {
        // @ts-ignore
         this.nombreUsuario = user.user.nombre;
-        console.log(this.nombreUsuario)
+        // console.log(this.nombreUsuario)
       })
   }
 
