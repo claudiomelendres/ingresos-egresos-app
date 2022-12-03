@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DashboardComponent} from "../dashboard/dashboard.component";
-import {IngresoEgresoComponent} from "./ingreso-egreso.component";
-import {EstadisticaComponent} from "./estadistica/estadistica.component";
-import {DetalleComponent} from "./detalle/detalle.component";
-import {OrdenIngresoPipe} from "../pipes/orden-ingreso.pipe";
-import {ReactiveFormsModule} from "@angular/forms";
-import {NgChartsModule} from "ng2-charts";
-import {SharedModule} from "../shared/shared.module";
-import {RouterModule} from "@angular/router";
-import {DashboardRoutesModule} from "../dashboard/dashboard-routes.module";
-import {StoreModule} from "@ngrx/store";
-import {ingresoEgresoReducer} from "./ingreso-egreso.reducers";
-
-
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { IngresoEgresoComponent } from './ingreso-egreso.component';
+import { EstadisticaComponent } from './estadistica/estadistica.component';
+import { DetalleComponent } from './detalle/detalle.component';
+import { OrdenIngresoPipe } from '../pipes/orden-ingreso.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
+import { StoreModule } from '@ngrx/store';
+import { ingresoEgresoReducer } from './ingreso-egreso.reducers';
 
 @NgModule({
   declarations: [
@@ -21,19 +19,17 @@ import {ingresoEgresoReducer} from "./ingreso-egreso.reducers";
     IngresoEgresoComponent,
     EstadisticaComponent,
     DetalleComponent,
-    OrdenIngresoPipe
+    OrdenIngresoPipe,
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('ingresosEgresos', ingresoEgresoReducer ),
+    StoreModule.forFeature('ingresosEgresos', ingresoEgresoReducer),
     ReactiveFormsModule,
     NgChartsModule,
     SharedModule,
     RouterModule,
-    DashboardRoutesModule
+    DashboardRoutesModule,
   ],
-  exports: [
-
-  ]
+  exports: [],
 })
-export class IngresoEgresoModule { }
+export class IngresoEgresoModule {}
